@@ -1,0 +1,22 @@
+{
+  "name": "jekyll-starter",
+  "version": "1.0.0",
+  "description": "A starter kit for a Jekyll website using a Sass and Gulp workflow ",
+  "main": "index.js",
+  "scripts": {
+    "gulp": "gulp"
+  },
+  "keywords": [
+    "Jekyll",
+    "Gulp 4",
+    "libSass"
+  ],
+  "author": "bkazi",
+  "license": "ISC",
+  "devDependencies": {
+    "browser-sync": "^2.11.2",
+    "gulp": "github:gulpjs/gulp#4.0",
+    "gulp-autoprefixer": "^3.1.0",
+    "gulp-sass": "^2.2.0"
+  }
+}
