@@ -4,7 +4,8 @@
   "description": "A starter kit for a Jekyll website using a Sass and Gulp workflow ",
   "main": "gulpfile.js",
   "scripts": {
-    "gulp": "gulp"
+    "gulp": "gulp",
+    "gulp build": "gulp build"
   },
   "keywords": [
     "Jekyll",
@@ -17,6 +18,7 @@
     "browser-sync": "^2.11.2",
     "gulp": "github:gulpjs/gulp#4.0",
     "gulp-autoprefixer": "^3.1.0",
+    "gulp-imagemin": "^2.4.0",
     "gulp-sass": "^2.2.0"
   }
 }
