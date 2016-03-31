@@ -11,7 +11,7 @@ var cp = require('child_process');
 var paths = {
     styles: {
         src: ['_sass/*.scss'],
-        dest: 'css/'
+        dest: '_includes/'
     },
     contentFiles: {
         src: ['*.html', '_layouts/*,html', '_includes/*.html', '_posts/*']
