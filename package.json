@@ -2,7 +2,7 @@
   "name": "jekyll-starter",
   "version": "1.0.0",
   "description": "A starter kit for a Jekyll website using a Sass and Gulp workflow ",
-  "main": "index.js",
+  "main": "gulpfile.js",
   "scripts": {
     "gulp": "gulp"
   },
