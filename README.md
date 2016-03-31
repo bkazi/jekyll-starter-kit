@@ -20,5 +20,5 @@ To start using your own project follow the snippet below
 ```bash
 $ gem install jekyll
 $ npm install
-$ gulp
+$ npm run gulp
 ```
