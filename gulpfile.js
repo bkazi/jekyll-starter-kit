@@ -1,3 +1,4 @@
+'use strict'
 var gulp = require('gulp');
 var bs = require('browser-sync').create();
 var sass = require('gulp-sass');
@@ -46,17 +47,22 @@ gulp.task('sass', () => {
 });
 
 /**
+* Browser sync task, initialises local server
+*/
+gulp.task('browserSync', () => {
+    bs.init({
+        server: './_site'
+    });
+});
+
+/**
 * Default task
 * Makes calls to other tasks
 */
 gulp.task(
     'default',
     gulp.series(
-        gulp.series('sass', 'buildJekyll'),
-        () => {
-            bs.init({
-                server: './_site'
-            })
-        }
+        gulp.parallel('sass', 'buildJekyll'),
+        'browserSync'
     )
 );
