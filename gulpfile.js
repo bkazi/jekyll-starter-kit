@@ -1,9 +1,23 @@
 'use strict'
 var gulp = require('gulp');
-var bs = require('browser-sync').create();
+var bs = require('browser-sync');
 var sass = require('gulp-sass');
 var prefixer = require('gulp-autoprefixer');
 var cp = require('child_process');
+
+/**
+* Object containing paths to all useful directories
+*/
+var paths = {
+    styles: {
+        src: ['_sass/*.scss'],
+        dest: 'css/'
+    },
+    contentFiles: {
+        src: ['*.html', '_layouts/*,html', '_includes/*.html', '_posts/*']
+    }
+};
+var msgJekyll = "Running: $ jekyll build"
 
 /**
 * Array defining browser versions to auto prefix for
@@ -30,19 +44,27 @@ var jekyll_options = '';
 gulp.task('buildJekyll', done => {
 	var jekyll_process = cp.spawn( jekyll, ['build', jekyll_options], {stdio: 'inherit'} )
 	jekyll_process.on('close', done);
+    bs.notify(msgJekyll);
 	return jekyll_process;
 });
+
+/**
+* Rebuild Jekyll and refresh browsers
+*/
+gulp.task('rebuildJekyll',
+    gulp.series('buildJekyll', bs.reload)
+);
 
 /**
  * Compile Sass files
  */
 gulp.task('sass', () => {
-    return gulp.src('_sass/main.scss')
+    return gulp.src(paths.styles.src)
         .pipe(sass({
             onError: bs.notify
         }))
         .pipe(prefixer(browsers))
-        .pipe(gulp.dest('css/'))
+        .pipe(gulp.dest(paths.styles.dest))
         .pipe(bs.stream());
 });
 
@@ -50,10 +72,26 @@ gulp.task('sass', () => {
 * Browser sync task, initialises local server
 */
 gulp.task('browserSync', () => {
-    bs.init({
-        server: './_site'
+    return bs({
+        server: {
+            baseDir: './_site'
+        }
     });
 });
+
+/**
+* Watch task to automatically inject compiled sass
+* and reload browser with new JS and HTML files
+*/
+gulp.task('watch', () => {
+    gulp.watch(paths.styles.src,
+        gulp.series('sass')
+    );
+    gulp.watch(paths.contentFiles.src,
+        gulp.series('rebuildJekyll')
+    );
+});
+
 
 /**
 * Default task
@@ -62,7 +100,8 @@ gulp.task('browserSync', () => {
 gulp.task(
     'default',
     gulp.series(
-        gulp.parallel('sass', 'buildJekyll'),
-        'browserSync'
+        'sass',
+        'buildJekyll',
+        gulp.parallel('browserSync', 'watch')
     )
 );
