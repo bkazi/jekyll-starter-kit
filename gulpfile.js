@@ -40,7 +40,7 @@ const jekyll = process.platform == 'win32' ? 'jekyll.bat' : 'jekyll';
 
 /**
 * Command line options for jekyll if needed
-* Array containing strings, build is compulsary
+* Array containing strings, build is compulsory
 */
 const jekyll_options = ['build'];
 
